@@ -3,8 +3,8 @@
 namespace Ripple\UserBundle\Tests\Entity;
 
 use PHPUnit_Framework_TestCase;
-use MyFood\UserBundle\Entity\Group;
-use MyFood\UserBundle\Entity\User;
+use Ripple\UserBundle\Entity\Group;
+use Ripple\UserBundle\Entity\User;
 
 /**
  * Test to ensure the User entity behaves as expected
