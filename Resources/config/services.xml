@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="ripple_user.profile.form.type" class="Ripple\UserBundle\Form\Type\ProfileFormType">
+            <tag name="form.type" alias="ripple_user_profile" />
+            <argument>%fos_user.model.user.class%</argument>
+        </service>
+
+        <service id="ripple_user.invite_resolver" class="Ripple\UserBundle\Invite\InviteResolver">
+            <argument type='service' id='doctrine' />
+        </service>
+
+        <service id="ripple_user.invite_listener" class="Ripple\UserBundle\Listener\InviteListener">
+            <tag name="kernel.event_listener" event="ripple_user.invite_accepted" method="onInviteAccepted" priority="-255" />
+        </service>
+
+        <service id="ripple_user.authenticator" class="Ripple\UserBundle\Authenticator\UserAuthenticator">
+            <argument type="service" id="security.context" />
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="service_container" />
+        </service>
+
+        <service id="ripple_user.invite_token_generator" class="Ripple\UserBundle\Invite\TokenGenerator" />
+
+        <service id="ripple_user.password_generator" class="Ripple\UserBundle\Generator\PasswordGenerator" />
+
+    </services>
+
+</container>

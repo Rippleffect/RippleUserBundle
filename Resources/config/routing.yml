@@ -1,0 +1,5 @@
+user_invite:
+    pattern: /invite/{token}
+    defaults: { _controller: RippleUserBundle:Invite:index }
+    requirements:
+        token: "[A-Za-z0-9]{40}"

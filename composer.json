@@ -1,0 +1,29 @@
+{
+    "name": "rippleffect/user-bundle",
+    "type": "symfony-bundle",
+    "description": "Rippleffect User Bundle",
+    "homepage": "http://github.com/rippleffect/RippleUserBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "James Halsall",
+            "email": "jhalsall@rippleffect.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.10",
+        "symfony/symfony": ">=2.1",
+        "friendsofsymfony/userbundle": "1.3.x"
+    },
+    "autoload": {
+        "psr-0": { "Ripple\\UserBundle": "" }
+    },
+    "target-dir": "Ripple/UserBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
+
