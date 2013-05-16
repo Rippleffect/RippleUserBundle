@@ -13,7 +13,7 @@ use Ripple\UserBundle\Entity\Invitation;
  * The main responsibility of the invite resolver is to determine whether or not
  * an invite and its token are still valid.
  *
- * @package MyFood\ProjectBundle\Service\Invites
+ * @package Ripple\UserBundle\Invites
  * @author  James Halsall <jhalsall@rippleffect.com>
  */
 class InviteResolver
