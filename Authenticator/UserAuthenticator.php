@@ -71,4 +71,17 @@ class UserAuthenticator
         $event = new InteractiveLoginEvent($request, $token);
         $this->dispatcher->dispatch('security.interactive_login', $event);
     }
+
+    /**
+     * Invalidates the user in the application.
+     *
+     * @param User $user The user to invalidate
+     *
+     * @return void
+     */
+    public function invalidate(User $user)
+    {
+        $this->container->get('request')->getSession()->invalidate();
+        $this->securityContext->setToken(null);
+    }
 }
