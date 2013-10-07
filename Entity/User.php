@@ -15,6 +15,7 @@ use \DateTime;
  * @author  James Halsall <jhalsall@rippleffect.com>
  *
  * @ORM\MappedSuperclass
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class User extends BaseUser
 {
@@ -61,6 +62,14 @@ class User extends BaseUser
      * @Gedmo\Timestampable(on="update")
      */
     protected $updated;
+
+    /**
+     * The datetime that this user was deleted (if any)
+     *
+     * @var DateTime
+     * @ORM\Column(type="datetime", name="deleted_at", nullable=true)
+     */
+    protected $deletedAt;
 
     /**
      * This user's user groups
@@ -143,5 +152,29 @@ class User extends BaseUser
         $groupNames = $this->getGroupNames();
 
         return array_shift($groupNames);
+    }
+
+    /**
+     * Sets the datetime that this user was deleted
+     *
+     * @param \DateTime $deletedAt The deleted datetime
+     *
+     * @return User
+     */
+    public function setDeletedAt(\DateTime $deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Gets the datetime that this user was deleted
+     *
+     * @return \DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }
