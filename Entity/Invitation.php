@@ -182,7 +182,7 @@ class Invitation
      *
      * @return Invitation
      */
-    public function setDeletedAt($deletedAt)
+    public function setDeletedAt(\DateTime $deletedAt)
     {
         $this->deletedAt = $deletedAt;
 
