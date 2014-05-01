@@ -3,6 +3,7 @@
 namespace Ripple\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * An entity representing an invite sent out to an email address.
@@ -14,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity(repositoryClass="Ripple\UserBundle\Entity\Repository\InvitationRepository")
  * @ORM\Table(name="invitations", uniqueConstraints={@ORM\UniqueConstraint(name="token_idx", columns={"token"})})
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Invitation
 {
@@ -58,6 +60,14 @@ class Invitation
      * @ORM\Column(type="string", length=120)
      */
     protected $email;
+
+    /**
+     * The time that this project was deleted (if any)
+     *
+     * @var string
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    protected $deletedAt;
 
     /**
      * Gets the identifier of this invitation
@@ -163,5 +173,29 @@ class Invitation
     public function getToken()
     {
         return $this->token;
+    }
+
+    /**
+     * Sets the "deleted at" date time
+     *
+     * @param \DateTime $deletedAt The date time that this object was deleted
+     *
+     * @return Invitation
+     */
+    public function setDeletedAt(\DateTime $deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Gets the "deleted at" date and time
+     *
+     * @return \DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }
