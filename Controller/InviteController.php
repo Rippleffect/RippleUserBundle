@@ -31,9 +31,12 @@ class InviteController extends Controller
      */
     public function indexAction($token)
     {
-        /** @var \Ripple\UserBundle\Service\InviteResolver $inviteResolver */
         $inviteResolver = $this->get('ripple_user.invite_resolver');
         $invitation = $inviteResolver->resolve($token);
+
+        if (null === $invitation) {
+            throw new NotFoundHttpException('No invitation found for the provided token.');
+        }
 
         $event = new InviteAcceptedEvent($invitation);
         $this->get('event_dispatcher')->dispatch('ripple_user.invite_accepted', $event);
