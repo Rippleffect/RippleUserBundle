@@ -2,6 +2,7 @@
 
 namespace Ripple\UserBundle\Security;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -28,12 +29,21 @@ class UserProvider implements UserProviderInterface
     protected $manager;
 
     /**
+     * The entity manager
+     *
+     * @var EntityManager
+     */
+    private $em;
+
+    /**
      * Constructor.
      *
-     * @param UserManager $manager The user manager
+     * @param EntityManager $em      The entity manager
+     * @param UserManager   $manager The user manager
      */
-    public function __construct(UserManager $manager)
+    public function __construct(EntityManager $em, UserManager $manager)
     {
+        $this->em = $em;
         $this->manager = $manager;
     }
 
@@ -76,7 +86,8 @@ class UserProvider implements UserProviderInterface
             );
         }
 
-        $reloadedUser = $this->manager->findUserBy(array('id' => $user->getId()));
+        $id = $this->em->getClassMetadata('MyFoodUserBundle:User')->getIdentifierValues($user);
+        $reloadedUser = $this->manager->findUserBy($id);
         if (null === $reloadedUser) {
             throw new UsernameNotFoundException(sprintf('User with ID "%d" could not be reloaded.', $user->getId()));
         }

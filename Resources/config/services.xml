@@ -30,6 +30,7 @@
         <service id="ripple_user.password_generator" class="Ripple\UserBundle\Generator\PasswordGenerator" />
 
         <service id="ripple_user.user_provider" class="Ripple\UserBundle\Security\UserProvider">
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
             <argument type="service" id="fos_user.user_manager" />
         </service>
 
