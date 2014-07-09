@@ -86,7 +86,7 @@ class UserProvider implements UserProviderInterface
             );
         }
 
-        $id = $this->em->getClassMetadata('MyFoodUserBundle:User')->getIdentifierValues($user);
+        $id = $this->em->getClassMetadata($this->manager->getClass())->getIdentifierValues($user);
         $reloadedUser = $this->manager->findUserBy($id);
         if (null === $reloadedUser) {
             throw new UsernameNotFoundException(sprintf('User with ID "%d" could not be reloaded.', $user->getId()));
